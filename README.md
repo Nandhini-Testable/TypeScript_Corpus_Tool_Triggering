@@ -185,3 +185,4 @@ workflow and all 26 `trigger.yaml` manifests agree on the Node version, the
 branch, and the architecture.
 
 <!-- dummy PR 2026-11-05 09:54:30 -->
+<!-- dummy PR 2026-11-05 10:27:49 -->
