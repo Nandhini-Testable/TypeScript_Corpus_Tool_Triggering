@@ -1,5 +1,5 @@
 ﻿# TypeScript Order Platform -- Monolith (TS_V20_VITE_NPM_MONO)
-
+#fummy
 Tool-evaluation repository for **Node 20**, bundled with **vite**,
 managed with **npm**, in a **Monolith** layout.
 
