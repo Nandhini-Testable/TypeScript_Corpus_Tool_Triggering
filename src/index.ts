@@ -15,15 +15,37 @@ export * from "./models/order-record";
 /** Deterministic sample book -- the same input every run, so tool output is comparable. */
 export function sampleOrders(): OrderRecord[] {
   return [
-    { id: "ORD-1001", channel: "retail", tier: "gold",
-      lines: [{ sku: "SKU-A", quantity: 4, unitPrice: 25 }], placedAt: "2026-01-05T09:00:00.000Z" },
-    { id: "ORD-1002", channel: "retail", tier: "standard",
-      lines: [{ sku: "SKU-B", quantity: 30, unitPrice: 12.5 }], placedAt: "2026-01-05T10:15:00.000Z" },
-    { id: "ORD-1003", channel: "wholesale", tier: "silver",
-      lines: [{ sku: "SKU-C", quantity: 150, unitPrice: 8 },
-              { sku: "SKU-D", quantity: 40, unitPrice: 19.99 }], placedAt: "2026-01-06T08:30:00.000Z" },
-    { id: "ORD-1004", channel: "partner", tier: "bronze",
-      lines: [{ sku: "SKU-E", quantity: 12, unitPrice: 44.5 }], placedAt: "2026-01-06T14:45:00.000Z" },
+    {
+      id: "ORD-1001",
+      channel: "retail",
+      tier: "gold",
+      lines: [{ sku: "SKU-A", quantity: 4, unitPrice: 25 }],
+      placedAt: "2026-01-05T09:00:00.000Z",
+    },
+    {
+      id: "ORD-1002",
+      channel: "retail",
+      tier: "standard",
+      lines: [{ sku: "SKU-B", quantity: 30, unitPrice: 12.5 }],
+      placedAt: "2026-01-05T10:15:00.000Z",
+    },
+    {
+      id: "ORD-1003",
+      channel: "wholesale",
+      tier: "silver",
+      lines: [
+        { sku: "SKU-C", quantity: 150, unitPrice: 8 },
+        { sku: "SKU-D", quantity: 40, unitPrice: 19.99 },
+      ],
+      placedAt: "2026-01-06T08:30:00.000Z",
+    },
+    {
+      id: "ORD-1004",
+      channel: "partner",
+      tier: "bronze",
+      lines: [{ sku: "SKU-E", quantity: 12, unitPrice: 44.5 }],
+      placedAt: "2026-01-06T14:45:00.000Z",
+    },
   ];
 }
 

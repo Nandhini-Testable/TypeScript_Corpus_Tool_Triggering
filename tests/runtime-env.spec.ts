@@ -40,10 +40,7 @@ describe("runtime environment", () => {
   });
 
   it("supports Promise.any, added in ES2021", async () => {
-    const first = await Promise.any([
-      Promise.reject(new Error("slow")),
-      Promise.resolve("fast"),
-    ]);
+    const first = await Promise.any([Promise.reject(new Error("slow")), Promise.resolve("fast")]);
     expect(first).to.equal("fast");
   });
 

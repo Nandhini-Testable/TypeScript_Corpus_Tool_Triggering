@@ -4,7 +4,9 @@ import { OrderValidationError, type OrderRecord } from "../src/models/order-reco
 
 function order(overrides: Partial<OrderRecord> = {}): OrderRecord {
   return {
-    id: "ORD-1", channel: "retail", tier: "standard",
+    id: "ORD-1",
+    channel: "retail",
+    tier: "standard",
     lines: [{ sku: "SKU-A", quantity: 2, unitPrice: 50 }],
     placedAt: "2026-01-01T00:00:00.000Z",
     ...overrides,
@@ -42,11 +44,17 @@ describe("OrderService", () => {
 
   it("rejects a non-positive quantity", () => {
     const bad = order({ lines: [{ sku: "SKU-X", quantity: 0, unitPrice: 10 }] });
-    expect(() => new OrderService().price(bad)).to.throw(OrderValidationError, /quantity must be positive/);
+    expect(() => new OrderService().price(bad)).to.throw(
+      OrderValidationError,
+      /quantity must be positive/,
+    );
   });
 
   it("rejects an order with no lines", () => {
-    expect(() => new OrderService().price(order({ lines: [] }))).to.throw(OrderValidationError, /at least one line/);
+    expect(() => new OrderService().price(order({ lines: [] }))).to.throw(
+      OrderValidationError,
+      /at least one line/,
+    );
   });
 
   it("collects failures instead of throwing in priceAll", () => {

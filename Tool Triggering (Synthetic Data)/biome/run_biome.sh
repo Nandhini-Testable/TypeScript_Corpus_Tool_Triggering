@@ -17,16 +17,23 @@ pkgver() {
 # biome 2.5.11 -- engines >=14.21.3. A Rust binary with its own parser: it never
 # loads tsc, so it is independent of the TypeScript version in a way eslint is not.
 #
-# Formatter and import-assist are DISABLED in biome.json. Style is owned by
-# .editorconfig and eslint; enabling biome's formatter too would mean two tools
-# disagreeing over import order, and real source must lint clean so that only
-# the planted fixtures carry findings.
+# The formatter is ENABLED in biome.json (indent/EOL come from .editorconfig) so the
+# 'formatter' use of Biome produces output. src/analysis is excluded from it: those
+# planted fixtures must keep their exact shape for the other tools that measure them.
+# Import-assist stays DISABLED -- import order is owned by eslint.
 echo "[biome] version:"; node_modules/.bin/biome --version
 echo
-echo "[biome] 1/2 real source -- expect clean"
+echo "[biome] 1/3 real source -- expect clean"
 node_modules/.bin/biome check src/models src/services || true
 echo
-echo "[biome] 2/2 planted fixtures -- expect findings"
+echo "[biome] 2/3 formatter report (real source + tests)"
+node_modules/.bin/biome format src tests --reporter=json > reports/biome-format.json 2>/dev/null || true
+node -e "
+  let r; try { r = require('./reports/biome-format.json'); } catch (e) { console.log('[biome] no formatter JSON report'); process.exit(0); }
+  console.log('[biome] formatter diagnostics:', (r.diagnostics || []).length);
+"
+echo
+echo "[biome] 3/3 planted fixtures -- expect findings"
 node_modules/.bin/biome check src/analysis --reporter=json > reports/biome.json 2>/dev/null || true
 node -e "
   let r; try { r = require('./reports/biome.json'); } catch (e) { console.log('[biome] no JSON report'); process.exit(0); }

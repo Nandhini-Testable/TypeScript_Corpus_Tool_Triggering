@@ -17,3 +17,5 @@ config: "biome.json"
 target_files: [src]
 command: "node_modules/.bin/biome check src"
 expects_findings: true
+formatter_command: "node_modules/.bin/biome format src tests --reporter=json"
+formatter_produces: "reports/biome-format.json"

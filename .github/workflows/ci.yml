@@ -7,9 +7,9 @@ name: TS-105
 
 on:
   push:
-    branches: ["TS-105"]
+    branches: ["TS-105", "TS_V20_VITE_NPM_MONO"]
   pull_request:
-    branches: ["TS-105"]
+    branches: ["TS-105", "TS_V20_VITE_NPM_MONO"]
   workflow_dispatch:
 
 jobs:
@@ -25,98 +25,98 @@ jobs:
           node-version: "20.20.2"
 
       - name: Package manager
-        run: npm i -g npm@8.19.4
+        run: npm i -g npm@11.19.1
 
       - name: Install (frozen -- gate G4)
         run: npm ci
 
       - name: Verify every tool is wired
-        run: node_modules/.bin/ts-node tools/tool_integration.ts --verify
+        run: node_modules/.bin/ts-node "Tool Triggering (Synthetic Data)/tool_integration.ts" --verify
 
       - name: Cross-file consistency audit
-        run: node_modules/.bin/ts-node tools/full_check.ts
+        run: node_modules/.bin/ts-node "Tool Triggering (Synthetic Data)/full_check.ts"
 
       - name: Type check and emit
-        run: bash tools/typescript/run_tsc.sh
+        run: bash "Tool Triggering (Synthetic Data)/typescript/run_tsc.sh"
 
       - name: Bundle and run the bundle
-        run: bash tools/vite/run_vite.sh
+        run: bash "Tool Triggering (Synthetic Data)/vite/run_vite.sh"
 
       - name: Tests
-        run: bash tools/mocha/run_mocha.sh
+        run: bash "Tool Triggering (Synthetic Data)/mocha/run_mocha.sh"
 
       - name: Coverage -- c8 (primary)
-        run: bash tools/c8/run_c8.sh
+        run: bash "Tool Triggering (Synthetic Data)/c8/run_c8.sh"
 
       - name: Coverage -- nyc + ts-node (cross-check)
-        run: bash tools/nyc/run_nyc.sh
+        run: bash "Tool Triggering (Synthetic Data)/nyc/run_nyc.sh"
 
       - name: Tests (vitest -- independent second runner)
-        run: bash tools/vitest/run_vitest.sh
+        run: bash "Tool Triggering (Synthetic Data)/vitest/run_vitest.sh"
 
       - name: Lint
-        run: bash tools/eslint/run_eslint.sh
+        run: bash "Tool Triggering (Synthetic Data)/eslint/run_eslint.sh"
 
       - name: Lint (biome -- own parser, never loads tsc)
-        run: bash tools/biome/run_biome.sh
+        run: bash "Tool Triggering (Synthetic Data)/biome/run_biome.sh"
 
       - name: Cognitive complexity
-        run: bash tools/sonarjs/run_sonarjs.sh
+        run: bash "Tool Triggering (Synthetic Data)/sonarjs/run_sonarjs.sh"
 
       - name: Security rules
-        run: bash tools/security/run_security.sh
+        run: bash "Tool Triggering (Synthetic Data)/security/run_security.sh"
 
       - name: Duplication
-        run: bash tools/jscpd/run_jscpd.sh
+        run: bash "Tool Triggering (Synthetic Data)/jscpd/run_jscpd.sh"
 
       - name: Dead code
         run: |
-          bash tools/ts-prune/run_ts_prune.sh
-          bash tools/knip/run_knip.sh
-          node tools/eslint-scope/run_eslint_scope.js
+          bash "Tool Triggering (Synthetic Data)/ts-prune/run_ts_prune.sh"
+          bash "Tool Triggering (Synthetic Data)/knip/run_knip.sh"
+          node "Tool Triggering (Synthetic Data)/eslint-scope/run_eslint_scope.js"
 
       - name: Structure
         run: |
-          node tools/ts-morph/run_ts_morph.js
-          bash tools/madge/run_madge.sh
-          bash tools/dependency-cruiser/run_depcruise.sh
+          node "Tool Triggering (Synthetic Data)/ts-morph/run_ts_morph.js"
+          bash "Tool Triggering (Synthetic Data)/madge/run_madge.sh"
+          bash "Tool Triggering (Synthetic Data)/dependency-cruiser/run_depcruise.sh"
 
       - name: Property-based tests
-        run: bash tools/fast-check/run_fastcheck.sh
+        run: bash "Tool Triggering (Synthetic Data)/fast-check/run_fastcheck.sh"
 
       - name: Mutation testing
-        run: bash tools/stryker/run_stryker.sh
+        run: bash "Tool Triggering (Synthetic Data)/stryker/run_stryker.sh"
 
       - name: SBOM and licences
         run: |
-          bash tools/cdxgen/run_cdxgen.sh
-          bash tools/ort/run_ort.sh
+          bash "Tool Triggering (Synthetic Data)/cdxgen/run_cdxgen.sh"
+          bash "Tool Triggering (Synthetic Data)/ort/run_ort.sh"
 
       - name: Supply chain
         run: |
-          bash tools/npm-audit/run_npm_audit.sh
-          bash tools/ncu/run_ncu.sh
-          bash tools/grype/run_grype.sh
+          bash "Tool Triggering (Synthetic Data)/npm-audit/run_npm_audit.sh"
+          bash "Tool Triggering (Synthetic Data)/ncu/run_ncu.sh"
+          bash "Tool Triggering (Synthetic Data)/grype/run_grype.sh"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Advisories and upstream metadata
         run: |
-          bash tools/github-advisories/run_github_advisories.sh
-          bash tools/github-api/run_github_api.sh
+          bash "Tool Triggering (Synthetic Data)/github-advisories/run_github_advisories.sh"
+          bash "Tool Triggering (Synthetic Data)/github-api/run_github_api.sh"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Observability
-        run: bash tools/opentelemetry/run_otel.sh
+        run: bash "Tool Triggering (Synthetic Data)/opentelemetry/run_otel.sh"
 
       - name: History mining
-        run: python3 tools/pydriller/run_pydriller.py
+        run: python3 "Tool Triggering (Synthetic Data)/pydriller/run_pydriller.py"
 
       - name: Complexity (tokeniser cross-check)
         run: |
           python3 -m pip install --quiet lizard
-          bash tools/lizard/run_lizard.sh
+          bash "Tool Triggering (Synthetic Data)/lizard/run_lizard.sh"
 
       - name: Upload tool output
         if: always()

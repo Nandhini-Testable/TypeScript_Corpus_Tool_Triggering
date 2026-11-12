@@ -1,7 +1,12 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.5.10/schema.json",
   "linter": { "enabled": true, "rules": { "recommended": true } },
-  "formatter": { "enabled": false },
+  "formatter": {
+    "enabled": true,
+    "useEditorconfig": true,
+    "lineWidth": 100,
+    "includes": ["**", "!src/analysis/**"]
+  },
   "assist": { "enabled": false },
   "files": {
     "ignoreUnknown": true,

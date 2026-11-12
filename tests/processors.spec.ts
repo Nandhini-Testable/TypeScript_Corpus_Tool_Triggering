@@ -5,12 +5,27 @@ import { WholesaleOrderProcessor } from "../src/services/wholesale-order-process
 import type { OrderRecord } from "../src/models/order-record";
 
 const BOOK: OrderRecord[] = [
-  { id: "R-1", channel: "retail", tier: "gold",
-    lines: [{ sku: "A", quantity: 2, unitPrice: 30 }], placedAt: "2026-02-01T00:00:00.000Z" },
-  { id: "W-1", channel: "wholesale", tier: "silver",
-    lines: [{ sku: "B", quantity: 120, unitPrice: 9 }], placedAt: "2026-02-01T00:00:00.000Z" },
-  { id: "P-1", channel: "partner", tier: "bronze",
-    lines: [{ sku: "C", quantity: 5, unitPrice: 20 }], placedAt: "2026-02-01T00:00:00.000Z" },
+  {
+    id: "R-1",
+    channel: "retail",
+    tier: "gold",
+    lines: [{ sku: "A", quantity: 2, unitPrice: 30 }],
+    placedAt: "2026-02-01T00:00:00.000Z",
+  },
+  {
+    id: "W-1",
+    channel: "wholesale",
+    tier: "silver",
+    lines: [{ sku: "B", quantity: 120, unitPrice: 9 }],
+    placedAt: "2026-02-01T00:00:00.000Z",
+  },
+  {
+    id: "P-1",
+    channel: "partner",
+    tier: "bronze",
+    lines: [{ sku: "C", quantity: 5, unitPrice: 20 }],
+    placedAt: "2026-02-01T00:00:00.000Z",
+  },
 ];
 
 describe("channel processors (the duplication fixture pair)", () => {
@@ -29,7 +44,8 @@ describe("channel processors (the duplication fixture pair)", () => {
   it("both summarise to the same shape -- they are structural twins", () => {
     const r = new RetailOrderProcessor(new OrderService());
     const w = new WholesaleOrderProcessor(new OrderService());
-    r.process(BOOK); w.process(BOOK);
+    r.process(BOOK);
+    w.process(BOOK);
     expect(Object.keys(r.summarise()).sort()).to.deep.equal(Object.keys(w.summarise()).sort());
   });
 

@@ -24,13 +24,21 @@ describe("pricing properties (fast-check)", () => {
       unitPrice: fc.integer({ min: 0, max: 10000 }).map((n) => n / 100),
     });
     fc.assert(
-      fc.property(fc.array(line, { minLength: 1, maxLength: 6 }), fc.constantFrom(...TIERS), (lines, tier) => {
-        const order: OrderRecord = {
-          id: "PROP", channel: "retail", tier, lines, placedAt: "2026-01-01T00:00:00.000Z",
-        };
-        const priced = new OrderService().price(order);
-        return priced.total >= 0 && priced.discount <= priced.subtotal;
-      }),
+      fc.property(
+        fc.array(line, { minLength: 1, maxLength: 6 }),
+        fc.constantFrom(...TIERS),
+        (lines, tier) => {
+          const order: OrderRecord = {
+            id: "PROP",
+            channel: "retail",
+            tier,
+            lines,
+            placedAt: "2026-01-01T00:00:00.000Z",
+          };
+          const priced = new OrderService().price(order);
+          return priced.total >= 0 && priced.discount <= priced.subtotal;
+        },
+      ),
       { numRuns: 200 },
     );
   });
