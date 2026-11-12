@@ -23,7 +23,7 @@ real Node 20.20.2 interpreter. None was written from memory.
 
 ## Supported tools
 
-49 tool families are wired. Each has a folder under `Tool Triggering (Synthetic Data)/` containing a
+53 tool families are wired. Each has a folder under `Tool Triggering (Synthetic Data)/` containing a
 `trigger.yaml` manifest, a runner, and its configuration.
 
 | Family | Pinned | Family | Pinned |
@@ -52,7 +52,9 @@ real Node 20.20.2 interpreter. None was written from memory.
 | Opengrep | v1.30.1 (binary) | covgate | 0.2.0 (cargo) |
 | reson | v1.4.1 (cargo) | DepScout | 1.0.0 |
 | TraceGraph (@tracegraph/trace-js) | 0.3.1 | git-hot | 0.11.1 (pip) |
-| npm downloads API | api.npmjs.org |  |  |
+| npm downloads API | api.npmjs.org | supercov | 4.19.0 (on demand, needs Node >=22) |
+| typhonjs-escomplex | 0.1.0 (on demand) | ts-complex | 1.0.0 (on demand) |
+| scikit-learn | 1.6.1 (pip, on demand) |  |  |
 
 ### Tools deliberately NOT wired
 

@@ -1,0 +1,19 @@
+tool: ts-complex
+label: "ts-complex"
+language: typescript
+node_version: "20"
+typescript_version: "5.9.3"
+branch: "TS-105"
+scenario: "1 - Monolithic"
+architecture: "Monolith"
+module: "flat"
+package_manager: "npm"
+bundler: "vite"
+project: package.json
+tests: tests/
+tools_project: "Tool Triggering (Synthetic Data)/"
+pinned-version: "1.0.0"  # installed on demand into reports/.tool-cache (it bundles TypeScript 2.x), not a package.json dependency
+config: null
+target_files: [src]
+command: "node 'Tool Triggering (Synthetic Data)/ts-complex/ts_complex_report.cjs'"
+produces: "reports/ts-complex.json -- per-function Halstead + cyclomatic complexity, per-file maintainability"

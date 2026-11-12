@@ -1,0 +1,19 @@
+tool: scikit-learn
+label: "scikit-learn"
+language: typescript
+node_version: "20"
+typescript_version: "5.9.3"
+branch: "TS-105"
+scenario: "1 - Monolithic"
+architecture: "Monolith"
+module: "flat"
+package_manager: "npm"
+bundler: "vite"
+project: package.json
+tests: tests/
+tools_project: "Tool Triggering (Synthetic Data)/"
+pinned-version: "1.6.1"  # pip, installed on demand into a virtualenv under reports/.tool-cache -- see requirements.txt
+config: "Tool Triggering (Synthetic Data)/scikit-learn/requirements.txt"
+target_files: [src, .git]
+command: "bash 'Tool Triggering (Synthetic Data)/scikit-learn/run_scikit_learn.sh'"
+produces: "reports/defect-probability.json -- per-file defect risk from git history and source shape"

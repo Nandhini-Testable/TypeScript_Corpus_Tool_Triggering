@@ -7,6 +7,7 @@ coverage-nyc/
 .nyc_output/
 .c8_output/
 .stryker-tmp/
+.supercov/
 *.tsbuildinfo
 .DS_Store
 

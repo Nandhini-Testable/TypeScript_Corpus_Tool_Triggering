@@ -17,7 +17,7 @@
     "typescript-n20-ts-105"
   ],
   "workspaces": [],
-  "toolsWired": 49,
+  "toolsWired": 53,
   "bundlerNote": "vite 8.2.2 -- current major, needs ^20.19.0 || >=22.12.0. Transform: its own bundled esbuild. Linker: Rollup.",
   "coveragePrimary": "c8",
   "coverageCrossCheck": "nyc + ts-node",

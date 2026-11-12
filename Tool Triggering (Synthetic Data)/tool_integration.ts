@@ -85,6 +85,10 @@ export const TOOL_WIRING: readonly Wiring[] = [
   { dir: "tracegraph", label: "TraceGraph (@tracegraph/trace-js)", wiring: "pinned 0.3.1 -> reports/tracegraph/*.events.jsonl.tmp -- traced call path through the order service" },
   { dir: "git-hot", label: "git-hot", wiring: "not an npm package -> reports/git-hot.txt -- live-line churn and age per file" },
   { dir: "npm-downloads", label: "npm downloads API", wiring: "not an npm package -> reports/npm-downloads.json -- weekly downloads of every direct dependency" },
+  { dir: "supercov", label: "supercov", wiring: "pinned 4.19.0 -> reports/supercov.json -- line, branch, function and MC/DC condition coverage of the mocha run; installed on demand, needs Node >=22" },
+  { dir: "typhonjs-escomplex", label: "typhonjs-escomplex", wiring: "pinned 0.1.0 -> reports/typhonjs-escomplex.json -- Halstead, cyclomatic complexity and maintainability; installed on demand" },
+  { dir: "ts-complex", label: "ts-complex", wiring: "pinned 1.0.0 -> reports/ts-complex.json -- per-function Halstead + cyclomatic complexity, per-file maintainability; installed on demand" },
+  { dir: "scikit-learn", label: "scikit-learn", wiring: "pip 1.6.1 -> reports/defect-probability.json -- per-file defect risk from git history and source shape; installed on demand into a virtualenv" },
 ];
 
 function runnerFor(dir: string): string | null {

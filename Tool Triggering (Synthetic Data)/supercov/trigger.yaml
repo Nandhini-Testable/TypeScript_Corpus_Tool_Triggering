@@ -1,0 +1,19 @@
+tool: supercov
+label: "supercov"
+language: typescript
+node_version: "20"
+typescript_version: "5.9.3"
+branch: "TS-105"
+scenario: "1 - Monolithic"
+architecture: "Monolith"
+module: "flat"
+package_manager: "npm"
+bundler: "vite"
+project: package.json
+tests: tests/
+tools_project: "Tool Triggering (Synthetic Data)/"
+pinned-version: "4.19.0"  # installed on demand into reports/.tool-cache, not a package.json dependency; the runner itself needs Node >=22
+config: null
+target_files: [src]
+command: "supercov -- node node_modules/mocha/bin/mocha.js --config 'Tool Triggering (Synthetic Data)/mocha/.mocharc.cjs'"
+produces: "reports/supercov.json -- line, branch, function and MC/DC condition coverage with per-test attribution"
