@@ -15,6 +15,6 @@ tools_project: "Tool Triggering (Synthetic Data)/"
 pinned-version: null  # not an npm package -- see the runner
 config: null
 target_files: [reports/sbom.json]
-command: "node osv_query.cjs reports/sbom.json reports/osv.json  (+ osv-scanner scan source -L package-lock.json when the CLI is installed)"
+command: "ts-node osv_query.ts reports/sbom.json reports/osv.json  (+ osv-scanner scan source -L package-lock.json when the CLI is installed)"
 expects_findings: true
 produces: "reports/osv.json -- vulnerable packages of the cdxgen SBOM"

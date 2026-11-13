@@ -15,7 +15,7 @@ tool_install() {  # tool_install <name> <bin> <package@version>...
 
 PIN="0.3.1"
 tool_install tracegraph "" "@tracegraph/trace-js@$PIN" || { echo "[tracegraph] SKIP -- could not install @tracegraph/trace-js@$PIN"; exit 0; }
-# @tracegraph/trace-js is an instrumentation library (no CLI): trace_driver.cjs wraps this branch's order-service
+# @tracegraph/trace-js is an instrumentation library (no CLI): trace_driver.ts wraps this branch's order-service
 # functions with traceFunction() and runs them, so the call path is written as JSONL events to reports/tracegraph.
 rm -rf reports/tracegraph && mkdir -p reports/tracegraph
-TS_NODE_PROJECT=tsconfig.json node "Tool Triggering (Synthetic Data)/tracegraph/trace_driver.cjs" reports/.tool-cache/tracegraph src reports/tracegraph
+TS_NODE_PROJECT=tsconfig.json node_modules/.bin/ts-node "Tool Triggering (Synthetic Data)/tracegraph/trace_driver.ts" reports/.tool-cache/tracegraph src reports/tracegraph

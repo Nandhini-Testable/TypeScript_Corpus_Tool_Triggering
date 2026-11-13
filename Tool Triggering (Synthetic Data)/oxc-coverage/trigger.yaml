@@ -15,5 +15,5 @@ tools_project: "Tool Triggering (Synthetic Data)/"
 pinned-version: "0.13.0"  # installed on demand into reports/.tool-cache, not a package.json dependency
 config: null
 target_files: [src]
-command: "node instrument.cjs src reports/.tool-cache/oxc-coverage/node_modules/oxc-coverage-instrument reports/oxc-coverage.json"
+command: "ts-node instrument.ts src reports/.tool-cache/oxc-coverage/node_modules/oxc-coverage-instrument reports/oxc-coverage.json"
 produces: "reports/oxc-coverage.json"

@@ -15,5 +15,5 @@ tools_project: "Tool Triggering (Synthetic Data)/"
 pinned-version: "0.3.1"  # installed on demand into reports/.tool-cache, not a package.json dependency
 config: null
 target_files: [src/services]
-command: "node trace_driver.cjs <install dir> src reports/tracegraph"
+command: "ts-node trace_driver.ts <install dir> src reports/tracegraph"
 produces: "reports/tracegraph/ -- JSONL trace events"
