@@ -41,7 +41,7 @@ real Node 20.20.2 interpreter. None was written from memory.
 | jscpd | 5.0.16 | OpenTelemetry sdk-node | 0.221.0 |
 | Grype | v0.110.0 (binary) | Lizard | pip |
 | pydriller | pip | GitHub Advisories + API | REST |
-| knip | 6.32.2 | vitest + @vitest/coverage-v8 | 4.1.11 |
+| knip | 6.32.2 | vitest + @vitest/coverage-istanbul (+ -v8 cross-check) | 4.1.11 |
 | @biomejs/biome | 2.5.10 | cccc | 3.2.0 (apt) |
 | debtmap | 0.24.1 (cargo) | oxlint | 1.87.0 |
 | Bearer CLI | v2.1.1 (binary) | CVE Lite CLI | 1.38.0 |

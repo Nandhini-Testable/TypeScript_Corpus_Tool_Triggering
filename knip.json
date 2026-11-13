@@ -1,7 +1,10 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
-  "entry": ["src/index.ts", "tests/**/*.spec.ts"],
+  "entry": ["src/index.ts", "tests/**/*.spec.ts", "eslint.config.mjs", "vite.config.mts", "vitest.config.ts"],
   "project": ["src/**/*.ts"],
+  "eslint": false,
+  "vite": false,
+  "vitest": false,
   "ignore": ["Tool Triggering (Synthetic Data)/**", "dist/**", "build/**"],
   "ignoreBinaries": ["biome", "depcruise", "grype", "lizard"],
   "ignoreExportsUsedInFile": true,
@@ -9,7 +12,7 @@
     "@cyclonedx/cdxgen", "@stryker-mutator/core", "@stryker-mutator/mocha-runner",
     "npm-check-updates", "jscpd", "madge", "dependency-cruiser", "ts-prune",
     "@biomejs/biome", "c8", "nyc", "espree", "eslint-scope", "source-map-support",
-    "esbuild", "vite", "rollup", "ts-morph", "knip", "vitest", "@vitest/coverage-v8",
+    "esbuild", "vite", "rollup", "ts-morph", "knip", "vitest", "@vitest/coverage-v8", "@vitest/coverage-istanbul",
     "@opentelemetry/api", "@opentelemetry/sdk-node", "@opentelemetry/sdk-trace-base",
     "@types/lodash", "@types/minimist", "@types/node-fetch", "@types/tar",
     "@types/node", "@types/mocha", "@types/chai"

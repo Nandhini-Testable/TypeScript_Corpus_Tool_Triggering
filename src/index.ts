@@ -2,6 +2,7 @@ import { OrderService } from "./services/order-service";
 import { RetailOrderProcessor } from "./services/retail-order-processor";
 import { WholesaleOrderProcessor } from "./services/wholesale-order-processor";
 import { snapshot } from "./platform/integrations";
+import { withSpan } from "./platform/telemetry";
 import type { OrderRecord, PricedOrder } from "./models/order-record";
 
 export { OrderService } from "./services/order-service";
@@ -57,24 +58,32 @@ export interface RunSummary {
 }
 
 export function run(): RunSummary {
-  // Defensive copy via lodash -- this is what makes the planted dependency
-  // pins genuinely reachable rather than merely declared. knip reports
-  // declared-but-unreachable dependencies, so an unused pin would contradict
-  // tools/grype/PLANTED-CVES.md.
-  const orders = snapshot(sampleOrders());
-  const service = new OrderService();
-  const retail = new RetailOrderProcessor(service);
-  const wholesale = new WholesaleOrderProcessor(service);
+  return withSpan("order-book.run", { "orders.sample": true }, () => {
+    // Defensive copy via lodash -- this is what makes the planted dependency
+    // pins genuinely reachable rather than merely declared. knip reports
+    // declared-but-unreachable dependencies, so an unused pin would contradict
+    // tools/grype/PLANTED-CVES.md.
+    const orders = snapshot(sampleOrders());
+    const service = new OrderService();
+    const retail = new RetailOrderProcessor(service);
+    const wholesale = new WholesaleOrderProcessor(service);
 
-  retail.process(orders);
-  wholesale.process(orders);
+    withSpan("retail.process", { "orders.count": orders.length }, () => retail.process(orders));
+    withSpan("wholesale.process", { "orders.count": orders.length }, () =>
+      wholesale.process(orders),
+    );
 
-  return {
-    runtime: process.version,
-    priced: service.priceAll(orders).priced,
-    retail: retail.summarise(),
-    wholesale: wholesale.summarise(),
-  };
+    return {
+      runtime: process.version,
+      priced: withSpan(
+        "orders.price",
+        { "orders.count": orders.length },
+        () => service.priceAll(orders).priced,
+      ),
+      retail: retail.summarise(),
+      wholesale: wholesale.summarise(),
+    };
+  });
 }
 
 /* istanbul ignore next -- entry point guard, exercised by the CLI smoke test */

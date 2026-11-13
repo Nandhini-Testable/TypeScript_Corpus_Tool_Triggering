@@ -14,13 +14,16 @@ pkgver() {
   node -e "try{console.log(JSON.parse(require('fs').readFileSync('node_modules/'+process.argv[1]+'/package.json','utf8')).version)}catch(e){console.log('unresolved')}" "$1"
 }
 
-# vitest 0.34.6 -- newest release supporting Node 16 (>=14.18.0).
-# vitest 1.x needs ^18||>=20; 4.x needs ^20||^22||>=24.
+# vitest 4.1.11 (needs Node ^20.19 || ^22.12 || >=24, the engines of this branch).
 #
 # vitest does NOT replace mocha. It runs the SAME spec files as an independent
 # second runner, so the suite stays identical across every Node version in the
-# corpus -- including the Node 12 repos, where vitest cannot run at all. It also
-# yields a third coverage number alongside c8 and nyc.
+# corpus. It also yields a third coverage number alongside c8 and nyc.
+#
+# Coverage comes from @vitest/coverage-istanbul (vitest.config.ts): an AST-instrumented
+# Istanbul map, which is what the path, all-defs/uses and coverage-delta tools read.
+# @vitest/coverage-v8 stays installed as the independent cross-check:
+#   node_modules/.bin/vitest run --coverage --coverage.provider=v8
 echo "[vitest] version: $(pkgver vitest)"
 node_modules/.bin/vitest run --config vitest.config.ts --coverage 2>&1 | tail -25
 node -e "

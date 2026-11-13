@@ -39,7 +39,7 @@ export const TOOL_WIRING: readonly Wiring[] = [
   { dir: "typescript", label: "TypeScript compiler (tsc)", wiring: "pinned 5.9.3 -> type diagnostics (must be empty)" },
   { dir: "vite", label: "Vite (esbuild-backed)", wiring: "pinned 8.2.2 -> build/bundle.cjs -- emitted by Vite (Rollup + its own esbuild transform), and the bundle is executed" },
   { dir: "mocha", label: "mocha", wiring: "pinned 11.8.0 -> test results (all must pass)" },
-  { dir: "vitest", label: "vitest + @vitest/coverage-v8", wiring: "pinned 4.1.11 -> coverage-vitest/coverage-summary.json -- a THIRD independent coverage number, alongside c8 and nyc" },
+  { dir: "vitest", label: "vitest + @vitest/coverage-istanbul", wiring: "pinned 4.1.11 -> coverage-vitest/coverage-summary.json -- a THIRD independent coverage number, alongside c8 and nyc; istanbul provider, v8 as cross-check" },
   { dir: "biome", label: "biome", wiring: "pinned 2.5.10 -> planted findings expected" },
   { dir: "c8", label: "c8 (V8 coverage, primary)", wiring: "pinned 12.0.0 -> coverage/coverage-summary.json -- MUST be non-zero (gate G2)" },
   { dir: "nyc", label: "nyc + ts-node (coverage cross-check)", wiring: "pinned 18.0.0 -> coverage-nyc/coverage-summary.json -- instruments .ts directly, never via source-map remap" },
