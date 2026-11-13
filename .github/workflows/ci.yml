@@ -111,7 +111,7 @@ jobs:
         run: bash "Tool Triggering (Synthetic Data)/opentelemetry/run_otel.sh"
 
       - name: History mining
-        run: python3 "Tool Triggering (Synthetic Data)/pydriller/run_pydriller.py"
+        run: node_modules/.bin/ts-node "Tool Triggering (Synthetic Data)/pydriller/run_pydriller.ts"
 
       - name: Complexity (tokeniser cross-check)
         run: |

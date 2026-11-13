@@ -40,7 +40,7 @@ real Node 20.20.2 interpreter. None was written from memory.
 | eslint-scope | 9.1.2 | npm audit / ls | 11.19.1 |
 | jscpd | 5.0.16 | OpenTelemetry sdk-node | 0.221.0 |
 | Grype | v0.110.0 (binary) | Lizard | pip |
-| pydriller | pip | GitHub Advisories + API | REST |
+| git-history (TS port of pydriller) | git CLI | GitHub Advisories + API | REST |
 | knip | 6.32.2 | vitest + @vitest/coverage-istanbul (+ -v8 cross-check) | 4.1.11 |
 | @biomejs/biome | 2.5.10 | cccc | 3.2.0 (apt) |
 | debtmap | 0.24.1 (cargo) | oxlint | 1.87.0 |
@@ -48,13 +48,13 @@ real Node 20.20.2 interpreter. None was written from memory.
 | license-checker-rseidelsohn | 4.4.2 | OSV-Scanner | OSV API v1 (CLI v2.6.0) |
 | monocart-coverage-reports | 2.13.2 | oxc-coverage-instrument | 0.13.0 |
 | mewt | 4.0.0 (cargo) | diff-cover | 10.6.0 (pip) |
-| ts-unused-exports | 11.0.1 | red-dragon | c287bb2 (git) |
+| ts-unused-exports | 11.0.1 | data-flow (TS replacement for red-dragon) | TypeScript API |
 | Opengrep | v1.30.1 (binary) | covgate | 0.2.0 (cargo) |
 | reson | v1.4.1 (cargo) | DepScout | 1.0.0 |
 | TraceGraph (@tracegraph/trace-js) | 0.3.1 | git-hot | 0.11.1 (pip) |
 | npm downloads API | api.npmjs.org | supercov | 4.19.0 (on demand, needs Node >=22) |
 | typhonjs-escomplex | 0.1.0 (on demand) | ts-complex | 1.0.0 (on demand) |
-| scikit-learn | 1.6.1 (pip, on demand) |  |  |
+| defect-risk (TS replacement for scikit-learn) | TypeScript |  |  |
 
 ### Tools deliberately NOT wired
 

@@ -12,8 +12,8 @@ bundler: "vite"
 project: package.json
 tests: tests/
 tools_project: "Tool Triggering (Synthetic Data)/"
-pinned-version: null  # not an npm package -- see the runner
+pinned-version: null  # no red-dragon: TypeScript compiler-API data flow (flow-insensitive; see dataflow.ts)
 config: null
 target_files: [src/analysis]
-command: "uv run python dataflow.py <red-dragon> reports/red-dragon.json <analysis fixtures>"
-produces: "reports/red-dragon.json"
+command: "ts-node 'Tool Triggering (Synthetic Data)/red-dragon/dataflow.ts' reports/dataflow.json <analysis fixtures>"
+produces: "reports/dataflow.json -- definitions, uses, def-use pairs, dead stores, maybe-uninitialised reads"

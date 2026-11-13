@@ -12,8 +12,8 @@ bundler: "vite"
 project: package.json
 tests: tests/
 tools_project: "Tool Triggering (Synthetic Data)/"
-pinned-version: "1.6.1"  # pip, installed on demand into a virtualenv under reports/.tool-cache -- see requirements.txt
-config: "Tool Triggering (Synthetic Data)/scikit-learn/requirements.txt"
+pinned-version: null  # no scikit-learn: a TypeScript isolation forest (see defect_probability.ts for the differences)
+config: null
 target_files: [src, .git]
-command: "bash 'Tool Triggering (Synthetic Data)/scikit-learn/run_scikit_learn.sh'"
+command: "ts-node 'Tool Triggering (Synthetic Data)/scikit-learn/defect_probability.ts'"
 produces: "reports/defect-probability.json -- per-file defect risk from git history and source shape"

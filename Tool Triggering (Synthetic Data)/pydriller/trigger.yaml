@@ -12,8 +12,8 @@ bundler: "vite"
 project: package.json
 tests: tests/
 tools_project: "Tool Triggering (Synthetic Data)/"
-pinned-version: null  # not an npm package -- see the runner
+pinned-version: null  # no PyDriller: a TypeScript port of the same git-history mining (git CLI)
 config: null
 target_files: [.git]
-command: "python3 'Tool Triggering (Synthetic Data)/pydriller/run_pydriller.py'"
+command: "ts-node 'Tool Triggering (Synthetic Data)/pydriller/run_pydriller.ts'"
 produces: "reports/history.json -- churn, coupling and ownership"

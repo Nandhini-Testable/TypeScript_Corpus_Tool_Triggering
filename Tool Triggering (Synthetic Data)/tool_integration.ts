@@ -62,7 +62,7 @@ export const TOOL_WIRING: readonly Wiring[] = [
   { dir: "opentelemetry", label: "@opentelemetry/sdk-node", wiring: "pinned 0.221.0 -> reports/otel-spans.json -- spans emitted by an instrumented run" },
   { dir: "grype", label: "Grype", wiring: "not an npm package -> planted findings expected" },
   { dir: "lizard", label: "Lizard", wiring: "not an npm package -> reports/lizard.csv -- CCN and token counts. See the caveat in the README" },
-  { dir: "pydriller", label: "pydriller", wiring: "not an npm package -> reports/history.json -- churn, coupling and ownership" },
+  { dir: "pydriller", label: "git-history (TypeScript port of pydriller)", wiring: "git CLI, no PyDriller -> reports/history.json -- churn, coupling and ownership" },
   { dir: "github-advisories", label: "Dependabot / GitHub Security Advisories API", wiring: "not an npm package -> planted findings expected" },
   { dir: "github-api", label: "GitHub API (repos + releases)", wiring: "not an npm package -> reports/upstream.json -- repo metadata and latest release" },
   { dir: "cccc", label: "cccc", wiring: "not an npm package -> reports/cccc/cccc.xml -- C/C++/Java metrics; no TypeScript front end (see the runner)" },
@@ -77,7 +77,7 @@ export const TOOL_WIRING: readonly Wiring[] = [
   { dir: "mewt", label: "mewt", wiring: "not an npm package -> reports/mewt.sqlite -- mutants killed or surviving the mocha suite" },
   { dir: "diff-cover", label: "diff-cover", wiring: "not an npm package -> reports/diff-cover.json -- coverage of the lines changed since the previous commit" },
   { dir: "ts-unused-exports", label: "ts-unused-exports", wiring: "pinned 11.0.1 -> reports/ts-unused-exports.txt -- exports no module imports" },
-  { dir: "red-dragon", label: "red-dragon", wiring: "not an npm package -> reports/red-dragon.json -- IR, CFG, reaching definitions and def-use chains" },
+  { dir: "red-dragon", label: "data-flow (TypeScript replacement for red-dragon)", wiring: "TypeScript compiler API -> reports/dataflow.json -- definitions, uses, def-use pairs, dead stores; flow-insensitive" },
   { dir: "opengrep", label: "Opengrep", wiring: "not an npm package -> reports/opengrep.json -- local-rule findings on the planted fixtures" },
   { dir: "covgate", label: "covgate", wiring: "not an npm package -> reports/covgate.md -- diff-coverage gate on Istanbul JSON" },
   { dir: "reson", label: "reson", wiring: "not an npm package -> reports/reson.json -- AST-level duplicate blocks" },
@@ -88,7 +88,7 @@ export const TOOL_WIRING: readonly Wiring[] = [
   { dir: "supercov", label: "supercov", wiring: "pinned 4.19.0 -> reports/supercov.json -- line, branch, function and MC/DC condition coverage of the mocha run; installed on demand, needs Node >=22" },
   { dir: "typhonjs-escomplex", label: "typhonjs-escomplex", wiring: "pinned 0.1.0 -> reports/typhonjs-escomplex.json -- Halstead, cyclomatic complexity and maintainability; installed on demand" },
   { dir: "ts-complex", label: "ts-complex", wiring: "pinned 1.0.0 -> reports/ts-complex.json -- per-function Halstead + cyclomatic complexity, per-file maintainability; installed on demand" },
-  { dir: "scikit-learn", label: "scikit-learn", wiring: "pip 1.6.1 -> reports/defect-probability.json -- per-file defect risk from git history and source shape; installed on demand into a virtualenv" },
+  { dir: "scikit-learn", label: "defect-risk (TypeScript replacement for scikit-learn)", wiring: "TypeScript isolation forest -> reports/defect-probability.json -- per-file defect risk from git history and source shape; unsupervised ranking" },
 ];
 
 function runnerFor(dir: string): string | null {
