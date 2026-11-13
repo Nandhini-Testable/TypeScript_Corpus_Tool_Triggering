@@ -16,4 +16,4 @@ tool_install() {  # tool_install <name> <check-path> <package@version>...
 PIN="0.1.0"
 tool_install typhonjs-escomplex typhonjs-escomplex/package.json "typhonjs-escomplex@$PIN" || { echo "[typhonjs-escomplex] SKIP -- could not install typhonjs-escomplex@$PIN (needs npm and network)"; exit 0; }
 echo "[typhonjs-escomplex] version: $PIN"
-node "Tool Triggering (Synthetic Data)/typhonjs-escomplex/typhonjs_escomplex_report.cjs"
+npx --no-install ts-node "Tool Triggering (Synthetic Data)/typhonjs-escomplex/typhonjs_escomplex_report.ts"

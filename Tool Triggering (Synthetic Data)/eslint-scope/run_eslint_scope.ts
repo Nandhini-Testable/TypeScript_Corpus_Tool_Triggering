@@ -1,20 +1,53 @@
-#!/usr/bin/env node
+#!/usr/bin/env ts-node
 /* eslint-scope runner -- branch TS-105.
  * Builds a scope tree over the planted dead-code fixture and reports, per
  * scope, how many variables are declared and how many are never referenced.
  * This is the structural counterpart to ts-prune's export-level view.
  */
-"use strict";
-const fs = require("fs");
-const path = require("path");
-const escope = require("eslint-scope");
-const espree = require("espree");
-const ts = require("typescript");
+import * as fs from "fs";
+import * as path from "path";
+import * as ts from "typescript";
+
+// eslint-scope and espree ship no type declarations; these are the parts used here.
+interface ScopeVariable {
+  readonly name: string;
+  readonly references: readonly unknown[];
+}
+interface Scope {
+  readonly type: string;
+  readonly block: { readonly type: string; readonly loc?: { readonly start: { readonly line: number } } | null };
+  readonly variables: readonly ScopeVariable[];
+}
+interface ScopeManager {
+  readonly scopes: readonly Scope[];
+}
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const escope = require("eslint-scope") as { analyze(ast: unknown, options: object): ScopeManager };
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const espree = require("espree") as { parse(code: string, options: object): unknown };
+
+interface ScopeRow {
+  readonly type: string;
+  readonly block: string;
+  readonly line: number | null;
+  readonly declared: number;
+  readonly unreferenced: number;
+  readonly names: string[];
+}
 
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
 const TARGET = path.join(REPO_ROOT, "src", "analysis", "dead-code.ts");
 
-const pkgver = (n) => { try { return JSON.parse(fs.readFileSync(path.join(REPO_ROOT, "node_modules", n, "package.json"), "utf8")).version; } catch (e) { return "unresolved"; } };
+function pkgver(name: string): string {
+  try {
+    const manifest = JSON.parse(
+      fs.readFileSync(path.join(REPO_ROOT, "node_modules", name, "package.json"), "utf8"),
+    ) as { version: string };
+    return manifest.version;
+  } catch {
+    return "unresolved";
+  }
+}
 console.log("[eslint-scope] version:", pkgver("eslint-scope"));
 
 // eslint-scope consumes an ESTree AST, so transpile the TypeScript away first.
@@ -26,7 +59,7 @@ const js = ts.transpileModule(source, {
 const ast = espree.parse(js, { ecmaVersion: 2019, sourceType: "module", range: true, loc: true });
 const scopeManager = escope.analyze(ast, { ecmaVersion: 2019, sourceType: "module" });
 
-const rows = [];
+const rows: ScopeRow[] = [];
 for (const scope of scopeManager.scopes) {
   const unused = scope.variables.filter((v) => v.references.length === 0 && v.name !== "arguments");
   rows.push({

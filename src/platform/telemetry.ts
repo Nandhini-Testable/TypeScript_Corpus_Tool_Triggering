@@ -4,7 +4,7 @@
  * Spans are created through `@opentelemetry/api` only. With no tracer provider
  * registered (the normal case: the test suite, the bundle) every call is a
  * no-op, so this adds no behaviour of its own. Under an SDK -- see
- * "Tool Triggering (Synthetic Data)/opentelemetry/otel-bootstrap.js" -- each
+ * "Tool Triggering (Synthetic Data)/opentelemetry/otel-bootstrap.ts" -- each
  * span is recorded, which is what the OpenTelemetry-spans metric measures.
  * Before this module existed nothing in `src/` ever started a span, so an
  * instrumented run exported zero spans and the metric could not be scored.

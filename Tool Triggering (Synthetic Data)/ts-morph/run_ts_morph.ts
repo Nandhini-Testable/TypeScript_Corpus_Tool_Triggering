@@ -1,23 +1,42 @@
-#!/usr/bin/env node
+#!/usr/bin/env ts-node
 /* ts-morph runner -- branch TS-105.
  * Type-aware inventory: one row per function with parameter count, statement
  * count and maximum block depth. This is the primary structural source; Lizard
  * is the tokeniser cross-check, and the two are expected to disagree on
  * generic-heavy code (Lizard under-counts).
  */
-"use strict";
-const fs = require("fs");
-const path = require("path");
-const { Project, SyntaxKind } = require("ts-morph");
+import * as fs from "fs";
+import * as path from "path";
+import { Node, Project, SyntaxKind, ts } from "ts-morph";
+
+interface CallableRow {
+  readonly file: string;
+  readonly name: string;
+  readonly line: number;
+  readonly params: number;
+  readonly statements: number;
+  readonly depth: number;
+  readonly isGeneric: boolean;
+}
 
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
-const pkgver = (n) => { try { return JSON.parse(fs.readFileSync(path.join(REPO_ROOT, "node_modules", n, "package.json"), "utf8")).version; } catch (e) { return "unresolved"; } };
-console.log("[ts-morph] version:", pkgver("ts-morph"),
-            "| bundled TypeScript:", require("ts-morph").ts.version);
+
+function pkgver(name: string): string {
+  try {
+    const manifest = JSON.parse(
+      fs.readFileSync(path.join(REPO_ROOT, "node_modules", name, "package.json"), "utf8"),
+    ) as { version: string };
+    return manifest.version;
+  } catch {
+    return "unresolved";
+  }
+}
+
+console.log("[ts-morph] version:", pkgver("ts-morph"), "| bundled TypeScript:", ts.version);
 
 const project = new Project({ tsConfigFilePath: path.join(REPO_ROOT, "tsconfig.json") });
 
-function maxDepth(node, depth) {
+function maxDepth(node: Node, depth: number): number {
   let best = depth;
   node.forEachChild((child) => {
     const isBlock = child.getKind() === SyntaxKind.Block;
@@ -27,7 +46,7 @@ function maxDepth(node, depth) {
   return best;
 }
 
-const rows = [];
+const rows: CallableRow[] = [];
 for (const sf of project.getSourceFiles()) {
   const rel = path.relative(REPO_ROOT, sf.getFilePath());
   if (rel.startsWith("node_modules") || rel.startsWith("dist")) continue;
@@ -37,16 +56,15 @@ for (const sf of project.getSourceFiles()) {
     ...sf.getClasses().flatMap((c) => [...c.getMethods(), ...c.getGetAccessors()]),
   ];
   for (const fn of callables) {
-    const name = typeof fn.getName === "function" ? fn.getName() : "(anonymous)";
     const body = fn.getBody();
     rows.push({
       file: rel,
-      name: name || "(anonymous)",
+      name: fn.getName() || "(anonymous)",
       line: fn.getStartLineNumber(),
       params: fn.getParameters().length,
-      statements: body && body.getStatements ? body.getStatements().length : 0,
+      statements: body && Node.isBlock(body) ? body.getStatements().length : 0,
       depth: maxDepth(fn, 0),
-      isGeneric: fn.getTypeParameters ? fn.getTypeParameters().length > 0 : false,
+      isGeneric: fn.getTypeParameters().length > 0,
     });
   }
 }

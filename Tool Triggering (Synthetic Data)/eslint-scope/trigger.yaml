@@ -15,5 +15,5 @@ tools_project: "Tool Triggering (Synthetic Data)/"
 pinned-version: "9.1.2"
 config: null
 target_files: [src/analysis/dead-code.ts]
-command: "node 'Tool Triggering (Synthetic Data)/eslint-scope/run_eslint_scope.js'"
+command: "ts-node 'Tool Triggering (Synthetic Data)/eslint-scope/run_eslint_scope.ts'"
 produces: "scope/variable inventory per function"

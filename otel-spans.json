@@ -2,27 +2,27 @@
   "spans": [
     {
       "name": "retail.process",
-      "durationMs": 0.215,
-      "startTimeUnixNano": "1794555459946000000",
-      "endTimeUnixNano": "1794555459946215000"
+      "durationMs": 0.5141,
+      "startTimeUnixNano": "1794561614691000000",
+      "endTimeUnixNano": "1794561614691514100"
     },
     {
       "name": "wholesale.process",
-      "durationMs": 0.0651,
-      "startTimeUnixNano": "1794555459946000000",
-      "endTimeUnixNano": "1794555459946065100"
+      "durationMs": 0.0837,
+      "startTimeUnixNano": "1794561614692000000",
+      "endTimeUnixNano": "1794561614692083700"
     },
     {
       "name": "orders.price",
-      "durationMs": 0.0837,
-      "startTimeUnixNano": "1794555459947000000",
-      "endTimeUnixNano": "1794555459947083700"
+      "durationMs": 0.1058,
+      "startTimeUnixNano": "1794561614692000000",
+      "endTimeUnixNano": "1794561614692105800"
     },
     {
       "name": "order-book.run",
-      "durationMs": 1.56,
-      "startTimeUnixNano": "1794555459945000000",
-      "endTimeUnixNano": "1794555459946560000"
+      "durationMs": 2.7197,
+      "startTimeUnixNano": "1794561614689000000",
+      "endTimeUnixNano": "1794561614691719700"
     }
   ]
 }

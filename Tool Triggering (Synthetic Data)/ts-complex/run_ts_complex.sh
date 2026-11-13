@@ -17,4 +17,4 @@ tool_install() {  # tool_install <name> <check-path> <package@version>...
 PIN="1.0.0"
 tool_install ts-complex ts-complex/package.json "ts-complex@$PIN" || { echo "[ts-complex] SKIP -- could not install ts-complex@$PIN (needs npm and network)"; exit 0; }
 echo "[ts-complex] version: $PIN"
-node "Tool Triggering (Synthetic Data)/ts-complex/ts_complex_report.cjs"
+npx --no-install ts-node "Tool Triggering (Synthetic Data)/ts-complex/ts_complex_report.ts"

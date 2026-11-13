@@ -15,5 +15,5 @@ tools_project: "Tool Triggering (Synthetic Data)/"
 pinned-version: "0.1.0"  # installed on demand into reports/.tool-cache, not a package.json dependency
 config: null
 target_files: [src]
-command: "node 'Tool Triggering (Synthetic Data)/typhonjs-escomplex/typhonjs_escomplex_report.cjs'"
+command: "ts-node 'Tool Triggering (Synthetic Data)/typhonjs-escomplex/typhonjs_escomplex_report.ts'"
 produces: "reports/typhonjs-escomplex.json -- Halstead, cyclomatic complexity and maintainability per file and function"

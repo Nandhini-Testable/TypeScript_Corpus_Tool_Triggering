@@ -16,7 +16,7 @@ pkgver() {
 
 echo "[otel] sdk-node: $(pkgver @opentelemetry/sdk-node)"
 test -f dist/src/index.js || bash "Tool Triggering (Synthetic Data)/typescript/run_tsc.sh"
-node -r "./Tool Triggering (Synthetic Data)/opentelemetry/otel-bootstrap.js" -e "require('./dist/src/index.js').run()"
+TS_NODE_TRANSPILE_ONLY=1 node -r ts-node/register -r "./Tool Triggering (Synthetic Data)/opentelemetry/otel-bootstrap.ts" -e "require('./dist/src/index.js').run()"
 node -e "
   const s = require('./reports/otel-spans.json');
   console.log('[otel] spans captured:', s.length);

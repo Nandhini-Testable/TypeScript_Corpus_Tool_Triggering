@@ -15,5 +15,5 @@ tools_project: "Tool Triggering (Synthetic Data)/"
 pinned-version: "27.0.2"
 config: "tsconfig.json"
 target_files: [src]
-command: "node 'Tool Triggering (Synthetic Data)/ts-morph/run_ts_morph.js'"
+command: "ts-node 'Tool Triggering (Synthetic Data)/ts-morph/run_ts_morph.ts'"
 produces: "per-function inventory: name, params, statements, depth"

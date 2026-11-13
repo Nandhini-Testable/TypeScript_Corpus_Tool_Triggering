@@ -15,5 +15,5 @@ tools_project: "Tool Triggering (Synthetic Data)/"
 pinned-version: "0.221.0"
 config: null
 target_files: [src/index.ts, src/platform/telemetry.ts]
-command: "node -r './Tool Triggering (Synthetic Data)/opentelemetry/otel-bootstrap.js' -e \"require('./dist/src/index.js').run()\""
+command: "node -r ts-node/register -r './Tool Triggering (Synthetic Data)/opentelemetry/otel-bootstrap.ts' -e \"require('./dist/src/index.js').run()\""
 produces: "reports/otel-spans.json -- spans emitted by an instrumented run; also otel-spans.json at the repo root, the shape the platform collector reads"
